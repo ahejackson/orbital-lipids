@@ -1,32 +1,32 @@
 export default class Vector2 {
-  x;
-  y;
+  x: number;
+  y: number;
 
-  constructor(x, y) {
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
 
-  add = (v) => {
+  add(v: Vector2) {
     this.x += v.x;
     this.y += v.y;
-  };
+  }
 
-  addScaled = (v, scale) => {
+  addScaled(v: Vector2, scale: number) {
     this.x += scale * v.x;
     this.y += scale * v.y;
-  };
+  }
 
-  distance = () => {
+  distance() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
-  };
+  }
 
-  distanceSquared = () => {
+  distanceSquared() {
     return this.x * this.x + this.y * this.y;
-  };
+  }
 
-  set = (v) => {
+  set(v: Vector2) {
     this.x = v.x;
     this.y = v.y;
-  };
+  }
 }

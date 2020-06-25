@@ -1,6 +1,7 @@
+import Lipid from './sim/lipid';
 import LipidSim from './sim/lipid-sim';
 
-const forceColors = ['', 'blue', 'red'];
+const forceColors = ['blue', 'red'];
 const timestep = 0.1;
 
 let showTails = false;
@@ -9,15 +10,15 @@ let showTotalForces = true;
 let running = false;
 
 // Draw the current state of the simulation
-const drawSim = (context, sim) => {
+const drawSim = (context: CanvasRenderingContext2D, sim: LipidSim) => {
   context.fillStyle = 'lightgray';
-  context.fillRect(0, 0, sim.width, sim.height);
+  context.fillRect(0, 0, sim.WIDTH, sim.HEIGHT);
 
   drawIterations(context, sim);
   sim.lipids.forEach((lipid) => drawLipid(context, lipid));
 };
 
-const drawLipid = (context, lipid) => {
+const drawLipid = (context: CanvasRenderingContext2D, lipid: Lipid) => {
   context.beginPath();
   context.arc(
     lipid.position.x,
@@ -40,7 +41,7 @@ const drawLipid = (context, lipid) => {
   }
 
   if (showForces) {
-    for (let i = 1; i <= LipidSim.NUM_FORCES; i++) {
+    for (let i = 0; i < LipidSim.NUM_FORCES; i++) {
       context.beginPath();
       context.moveTo(lipid.position.x, lipid.position.y);
       context.lineTo(
@@ -64,7 +65,7 @@ const drawLipid = (context, lipid) => {
   }
 };
 
-const drawIterations = (context, sim) => {
+const drawIterations = (context: CanvasRenderingContext2D, sim: LipidSim) => {
   context.fillStyle = 'black';
   context.font = '16px Helvetica';
   context.fillText(`t = ${sim.t}`, 20, 20);
@@ -110,8 +111,11 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-const canvas = document.getElementById('awesome-simple-lipids');
-const ctx = canvas.getContext('2d');
+// Get references to the canvas
+const canvas = document.getElementById(
+  'awesome-simple-lipids'
+)! as HTMLCanvasElement;
+const ctx = canvas.getContext('2d')!;
 
 // Create the sim
 const sim = new LipidSim();
