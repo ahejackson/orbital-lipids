@@ -1,79 +1,29 @@
-import Lipid from './sim/lipid';
 import LipidSim from './sim/lipid-sim';
+import * as viz from './viz/lipid-sim-viz';
 
-const forceColors = ['blue', 'red'];
+// Sim Settings
 const timestep = 0.1;
-
-let showTails = false;
-let showForces = true;
-let showTotalForces = true;
 let running = false;
+let sim: LipidSim;
+let ctx: CanvasRenderingContext2D;
 
-// Draw the current state of the simulation
-const drawSim = (context: CanvasRenderingContext2D, sim: LipidSim) => {
-  context.fillStyle = 'lightgray';
-  context.fillRect(0, 0, sim.WIDTH, sim.HEIGHT);
+// Init
+const init = () => {
+  // Get references to the canvas
+  const canvas = document.getElementById(
+    'awesome-simple-lipids'
+  )! as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
 
-  drawIterations(context, sim);
-  sim.lipids.forEach((lipid) => drawLipid(context, lipid));
+  // Create the sim
+  const sim = new LipidSim();
+  viz.drawSim(ctx, sim);
 };
 
-const drawLipid = (context: CanvasRenderingContext2D, lipid: Lipid) => {
-  context.beginPath();
-  context.arc(
-    lipid.position.x,
-    lipid.position.y,
-    LipidSim.HEAD_RADIUS,
-    0,
-    2 * Math.PI
-  );
-  context.fillStyle = 'red';
-  context.fill();
-  context.strokeStyle = 'gray';
-  context.stroke();
-
-  // If we were drawing the tails...
-  if (showTails) {
-    context.beginPath();
-    context.moveTo(lipid.head.x, lipid.head.y);
-    context.lineTo(lipid.tail.x, lipid.tail.y);
-    context.stroke();
-  }
-
-  if (showForces) {
-    for (let i = 0; i < LipidSim.NUM_FORCES; i++) {
-      context.beginPath();
-      context.moveTo(lipid.position.x, lipid.position.y);
-      context.lineTo(
-        lipid.position.x + lipid.forces[i].x,
-        lipid.position.y + lipid.forces[i].y
-      );
-      context.strokeStyle = forceColors[i];
-      context.stroke();
-    }
-  }
-
-  if (showTotalForces) {
-    context.beginPath();
-    context.moveTo(lipid.position.x, lipid.position.y);
-    context.lineTo(
-      lipid.position.x + lipid.force.x,
-      lipid.position.y + lipid.force.y
-    );
-    context.strokeStyle = 'white';
-    context.stroke();
-  }
-};
-
-const drawIterations = (context: CanvasRenderingContext2D, sim: LipidSim) => {
-  context.fillStyle = 'black';
-  context.font = '16px Helvetica';
-  context.fillText(`t = ${sim.t}`, 20, 20);
-};
-
+// Update loop
 const updateAndRender = () => {
   sim.iterate(timestep);
-  drawSim(ctx, sim);
+  viz.drawSim(ctx, sim);
 
   if (running) {
     window.requestAnimationFrame(updateAndRender);
@@ -91,32 +41,22 @@ document.addEventListener('keyup', (event) => {
   }
 
   if (event.code === 'Digit1') {
-    showTails = !showTails;
-    window.requestAnimationFrame(() => drawSim(ctx, sim));
+    viz.settings.showTails = !viz.settings.showTails;
+    window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
   }
 
   if (event.code === 'Digit2') {
-    showForces = !showForces;
-    window.requestAnimationFrame(() => drawSim(ctx, sim));
+    viz.settings.showForces = !viz.settings.showForces;
+    window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
   }
 
   if (event.code === 'Digit3') {
-    showTotalForces = !showTotalForces;
-    window.requestAnimationFrame(() => drawSim(ctx, sim));
+    viz.settings.showTotalForces = !viz.settings.showTotalForces;
+    window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
   }
 
   if (event.code === 'KeyF') {
     sim.iterate(timestep);
-    drawSim(ctx, sim);
+    viz.drawSim(ctx, sim);
   }
 });
-
-// Get references to the canvas
-const canvas = document.getElementById(
-  'awesome-simple-lipids'
-)! as HTMLCanvasElement;
-const ctx = canvas.getContext('2d')!;
-
-// Create the sim
-const sim = new LipidSim();
-drawSim(ctx, sim);

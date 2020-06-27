@@ -15,5 +15,7 @@
     "prettier": "^2.0.5",
     "typescript": "^3.9.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "stats.js": "^0.17.0"
+  }
 }
