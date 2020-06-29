@@ -5,7 +5,6 @@ const forceColors = ['blue', 'red'];
 
 // Viz Settings
 export const settings = {
-  showTails: false,
   showForces: true,
   showTotalForces: true,
 };
@@ -32,14 +31,6 @@ const drawLipid = (context: CanvasRenderingContext2D, lipid: Lipid) => {
   context.fill();
   context.strokeStyle = 'gray';
   context.stroke();
-
-  // If we were drawing the tails...
-  if (settings.showTails) {
-    context.beginPath();
-    context.moveTo(lipid.head.x, lipid.head.y);
-    context.lineTo(lipid.tail.x, lipid.tail.y);
-    context.stroke();
-  }
 
   if (settings.showForces) {
     for (let i = 0; i < LipidSim.NUM_FORCES; i++) {

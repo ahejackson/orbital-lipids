@@ -51,16 +51,11 @@ document.addEventListener('keyup', (event) => {
   }
 
   if (event.code === 'Digit1') {
-    viz.settings.showTails = !viz.settings.showTails;
-    window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
-  }
-
-  if (event.code === 'Digit2') {
     viz.settings.showForces = !viz.settings.showForces;
     window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
   }
 
-  if (event.code === 'Digit3') {
+  if (event.code === 'Digit2') {
     viz.settings.showTotalForces = !viz.settings.showTotalForces;
     window.requestAnimationFrame(() => viz.drawSim(ctx, sim));
   }
@@ -72,4 +67,3 @@ document.addEventListener('keyup', (event) => {
 });
 
 init();
-console.log('A');
