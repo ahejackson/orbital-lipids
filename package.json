@@ -1,7 +1,9 @@
 {
-  "name": "orbital-lipids-vite",
-  "private": true,
-  "version": "0.0.0",
+  "name": "orbital-lipids",
+  "version": "1.0.0",
+  "author": "Adam Jackson",
+  "license": "MIT",
+  "description": "A toy model that has no basis in reality but looks cool.",
   "type": "module",
   "scripts": {
     "dev": "vite",
