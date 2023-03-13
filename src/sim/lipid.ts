@@ -9,7 +9,7 @@ export default class Lipid {
   // The individual forces
   forces: Vector2[] = [];
 
-  constructor(x: number, y: number, angle: number) {
+  constructor(x: number, y: number) {
     this.force = new Vector2(0, 0);
     this.velocity = new Vector2(0, 0);
     this.position = new Vector2(x, y);

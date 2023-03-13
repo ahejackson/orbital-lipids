@@ -26,8 +26,7 @@ export default class LipidSim {
     for (let i = 0; i < this.NUM_LIPIDS; i++) {
       this.lipids[i] = new Lipid(
         this.WIDTH * Math.random(),
-        this.HEIGHT * Math.random(),
-        0
+        this.HEIGHT * Math.random()
       );
     }
   }

@@ -1,13 +1,11 @@
 import LipidSim from './sim/lipid-sim';
 import * as viz from './viz/lipid-sim-viz';
-import Stats from 'stats.js';
 
 // Sim Settings
 const timestep = 0.1;
 let running = false;
 let sim: LipidSim;
 let ctx: CanvasRenderingContext2D;
-let stats: Stats;
 
 // Init
 const init = () => {
@@ -20,20 +18,13 @@ const init = () => {
   // Create the sim
   sim = new LipidSim();
 
-  // Create the stats
-  stats = new Stats();
-  stats.showPanel(1);
-  document.body.appendChild(stats.dom);
-
   viz.drawSim(ctx, sim);
 };
 
 // Update loop
 const updateAndRender = () => {
-  stats.begin();
   sim.iterate(timestep);
   viz.drawSim(ctx, sim);
-  stats.end();
 
   if (running) {
     window.requestAnimationFrame(updateAndRender);

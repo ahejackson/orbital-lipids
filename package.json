@@ -1,22 +1,15 @@
 {
-  "name": "awesome-simple-lipids",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "orbital-lipids-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "parcel build src/index.html",
-    "clean": "rm -rf .cache",
-    "dev": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "author": "Adam Jackson",
-  "license": "ISC",
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.5"
-  },
-  "dependencies": {
-    "stats.js": "github:ahejackson/stats.js"
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
   }
 }
